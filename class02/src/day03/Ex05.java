@@ -32,9 +32,41 @@ package day03;
  */
 public class Ex05 {
 	public static void main(String[] args) {
-		System.out.println('a' - 'A');
+		// 랜덤하게 문자를 발생시켜서 처리하는 것으로 한다.
+		/*
+			랜덤한 숫자를 발생시키는 방법
+				
+				Math.random()
+				
+			참고 ]
+				수학 식으로 표현하면
+					
+					0 <= Math.random() < 1.0
+					
+			사용 방법 ]
+				
+				랜덤한 정수 발생 방법
+				
+				(int)(Math.random() * (큰수 - 작은수 + 1)) + 작은수
+				
+				1 ~ 10 사이의 정수를 랜덤하게 발생시켜본다.
+				
+				(int) (Math.random() * (10 - 1 + 1)) + 1
+				
+				
+		 */
 		
-		String str = "ABC";
-		System.out.println(str.charAt(2));
+		char ch = (char)(Math.random() * (127 - 0 + 1)) ;
+		
+		char result = (ch >= 'A' && ch <= 'Z') 
+						? 
+							(char)(ch + ('a' - 'A')) 
+						: 
+							(
+								(ch >= 'a' && ch <= 'z') ? (char)(ch - ('a' - 'A')) : ch	
+							);
+		
+		System.out.printf("랜덤하게 발생한 문자 [ %c ] 는 < %c > 로 변환된다.", ch, result);
+		
 	}
 }

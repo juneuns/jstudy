@@ -10,6 +10,16 @@ package day03;
  */
 public class Ex06 {
 	public static void main(String[] args) {
+		// 랜덤하게 게시글 숫자를 발생시켜서 필요한 게시판 수를 계산해보자.
 		
+		int content = (int)(Math.random() * 1000);
+		
+		int page = (content % 15 != 0) 
+					? 
+						(content / 15 + 1) 
+					:
+						(content == 0) ? 1 : content / 15
+					;
+		System.out.printf("랜덤하게 발생된 게시물 수 %3d 개는 %2d 개의 게시판이 필요합니다.", content, page);
 	}
 }
