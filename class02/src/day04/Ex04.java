@@ -10,5 +10,22 @@ package day04;
  */
 
 public class Ex04 {
-
+	int num = 0; // 멤버변수(전역변수)
+	
+	public static void main(String[] args) {
+		int no = 0; // 함수내부의 전역변수
+		if(true) {
+//			int no = 10; // 지역변수
+		}
+		
+		System.out.println(no);
+	}
+	
+	public void xyz() {
+		num = 20;
+	}
+	
+	public void abc() {
+		System.out.println(num);
+	}
 }
