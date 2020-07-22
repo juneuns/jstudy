@@ -11,9 +11,18 @@ package day05;
 public class Ex04 {
 	public static void main(String[] args) {
 		int booho = -1;
-		for(int i = 0 ; i < 10 ; i++ ) {
+		int sum = 0;
+		int num = 1;
+		for(int i = 1 ; true ; i++ ) {
 			booho *= -1;
-			System.out.println(booho);
+			sum = sum + (booho * i);
+			if(sum > 100) {
+				num = i;
+				break;
+			}
 		}
+		
+		System.out.println("더한 값이 100이 넘는 숫자는 " + 
+							num + " 이고 합은 " + sum + " 입니다.");
 	}
 }
