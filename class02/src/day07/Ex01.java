@@ -23,18 +23,39 @@ public class Ex01 {
 
 	public static void main(String[] args) {
 		
-		String chStr = "ABCDEFGHIJ";
+		String chStr = "";
+		/*
+		for(int i = 0 ; i < 10 ; i++) {
+			chStr += (char)('A' + i);
+		}
+		*/
+		
+		StringBuffer buff = new StringBuffer();
+		for(int i = 0 ; i < 10 ; i++ ) {
+			buff.append((char)('A' + i));			
+		}
+		chStr = buff.toString();
+		System.out.println("문자열 : " + chStr);
+		
+		
 		int[] arr = new int[chStr.length()];
 		
+		/*
 		for(int i = 0 ; i < 100 ; i++ ) {
 			char ch = (char)(Math.random() * 10 + 'A');
 			arr[chStr.indexOf(ch)] += 1;
+		}
+		*/
+		
+		for(int i = 0 ; i < 100 ; i++ ) {
+			int idx = (int)(Math.random() * 10);
+			arr[idx] += 1;
 		}
 		
 		for(int i = 0 ; i < arr.length ; i++ ) {
 			System.out.printf("%2c ( %2d ) : ", chStr.charAt(i), arr[i]);
 			for(int j = 0 ; j < arr[i] ; j++) {
-				System.out.print("*");
+				System.out.print("♥ ");
 			}
 			System.out.println();
 		}
