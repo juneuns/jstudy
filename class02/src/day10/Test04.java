@@ -9,16 +9,20 @@ package day10;
 
 import javax.swing.*;
 public class Test04 {
-	
+	// 전역변수만들고
 	int num1 = 0;
 	int num2 = 0;
 	String mark = "";
 	
 	public Test04() {
 		
+/*		
+		JOptionPane.showMessageDialog(null, "입력된 숫자는" + num1 + " 과 " + num2 + 
+											" 이고 두 숫자의 " + mark + " 연산 결과는 " + calc() + " 입니다.\nnum1 : " + num1);
+*/		
 		int gap = calc();
 		JOptionPane.showMessageDialog(null, "입력된 숫자는" + num1 + " 과 " + num2 + 
-											" 이고 두 숫자의 " + mark + " 연산 결과는 " + gap + " 입니다.");
+				" 이고 두 숫자의 " + mark + " 연산 결과는 " + gap + " 입니다.");
 	}
 	
 	
@@ -29,7 +33,7 @@ public class Test04 {
 		
 		// 숫자 두개 입력받아서 기억하고
 		int no1 = Integer.parseInt(JOptionPane.showInputDialog("첫번째 숫자를 입력하세요."));
-		num1 = no1;
+		num1 = no1; // 전역변수에 직접 데이터를 입력해도 상관이 없다. 오히려 더 좋다.
 		int no2 = Integer.parseInt(JOptionPane.showInputDialog("두번째 숫자를 입력하세요."));
 		num2 = no2;
 		while(true) {
