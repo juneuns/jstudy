@@ -8,6 +8,13 @@ public class Test06 {
 	
 	public Test06() {
 //		setOne();
+		
+		setMany(); // ==> 배열이 초기화 됬다.
+//		toPrint();
+		
+		// 문제 1 ]
+		// 친구 이름을 입력하면 친구의 정보만 출력하는 프로그램을 작성하세요.
+		
 	}
 	
 	// 1단계 - 한사람 데이터를 만들어보자. 출력까지 해보자.
@@ -18,8 +25,8 @@ public class Test06 {
 		p1.setData("홍길동", "010-1111-1111", "hong@increpas.com", 18, 'M');
 		
 		// 객체에서 변수 접근해서 출력해본다.
-		System.out.printf("이    름 : %3s\n전화번호 : %13s\n이 메 일 : %-25s\n나    이 : %3d\n성    별 : %2c", 
-							p1.name, p1.tel, p1.mail, p1.age, p1.gen
+		System.out.printf("이    름 : %3s\n전화번호 : %13s\n이 메 일 : %-25s\n나    이 : %3d\n성    별 : %2s", 
+							p1.name, p1.tel, p1.mail, p1.age, p1.gen == 'M' ? "남자" : "여자"
 							);
 	}
 	
@@ -55,6 +62,15 @@ public class Test06 {
 			friend[i].gen = gen[i];
 			*/
 			friend[i].setData(name[i], tel[i], mail[i], age[i], gen[i]);
+		}
+	}
+	
+	// 친구들 정보를 출력해주는 함수
+	public void toPrint() {
+		for(int i = 0 ; i < friend.length ; i++ ) {
+			System.out.printf("이    름 : %3s\n전화번호 : %13s\n이 메 일 : %-25s\n나    이 : %3d\n성    별 : %2s\n", 
+					friend[i].name, friend[i].tel, friend[i].mail, friend[i].age, friend[i].gen == 'M' ? "남자" : "여자");
+			System.out.println("-----------------------------------------");
 		}
 	}
 	public static void main(String[] args) {
