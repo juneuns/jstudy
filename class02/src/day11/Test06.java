@@ -17,6 +17,13 @@ public class Test06 {
 		
 	}
 	
+	// 친구 이름들만 출력해주는 함수
+	public void printName() {
+		for(int i = 0 ; i < friend.length ; i++ ) {
+			
+		}
+	}
+	
 	// 1단계 - 한사람 데이터를 만들어보자. 출력까지 해보자.
 	public void setOne() {
 		// 객체 만들고
@@ -32,7 +39,7 @@ public class Test06 {
 	
 	// 전역 변수의 데이터를 초기화해주는 함수
 	public void setArray() {
-		name = new String[] {"아이유", "윤요셉", "윤병욱", "오혜찬", "이지우"};
+		name = new String[] {"아이유", "윤요셉", "유병욱", "오혜찬", "이지우"};
 		tel = new String[] {"010-1111-1111", "010-5069-8600", "010-2587-2304", 
 												"010-7648-5213", "010-3843-4798"};
 		mail = new String[] {"iu@increpas.com", "joseph@increpas.com", "wook@increpas.com", 
@@ -73,6 +80,17 @@ public class Test06 {
 			System.out.println("-----------------------------------------");
 		}
 	}
+	// 친구들 정보를 출력해주는 함수
+	public void toPrint(String name) {
+		int idx = 0 ;
+		for(;idx < friend.length ; idx++ ) {
+			if(friend[idx].name.equals(name)) break;
+		}
+		System.out.printf("이    름 : %3s\n전화번호 : %13s\n이 메 일 : %-25s\n나    이 : %3d\n성    별 : %2s\n", 
+				friend[idx].name, friend[idx].tel, friend[idx].mail, friend[idx].age, friend[idx].gen == 'M' ? "남자" : "여자");
+		System.out.println("-----------------------------------------");
+	}
+	
 	public static void main(String[] args) {
 		new Test06();
 	}
