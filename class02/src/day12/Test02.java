@@ -1,5 +1,6 @@
 package day12;
 
+import javax.swing.*;
 public class Test02 {
 
 	public Test02() { // 기본 생성자 함수
@@ -9,10 +10,24 @@ public class Test02 {
 		// 한사람 데이터만 출력한다.( 예 : 윤요셉 )
 		m.toPrint("윤요셉", memb);
 		
-		// 오혜찬 씨 정보를 출력해보자.
+		// 모든 사람의 정보를 출력해보자.
+		/*
 		for(int i = 0 ; i < memb.length ; i++ ) {
 			memb[i].toPrint();
 		}
+		*/
+		
+		m.toPrint(memb);
+		System.out.println();
+		
+		// 회원번호를 입력받는다.
+		String sno = JOptionPane.showInputDialog("회원번호를 입력하세요!");
+		// 정수 데이터로 변환해주고
+		int mno = Integer.parseInt(sno);
+		
+		// 출력해주고
+		m.toPrint(mno, memb);
+		
 	}
 
 	public static void main(String[] args) {
@@ -117,6 +132,18 @@ class Member {
 	
 	// 회원들 정보를 출력해주는 함수
 	public void toPrint(Member[] memb) {
-		
+		for(int i = 0 ; i < memb.length ; i++ ) {
+			Member m = memb[i];
+			m.toPrint();
+		}
+	}
+	
+	// 회원 번호를 입력하면 해당 회원의 정보를 출력해주는 함수
+	public void toPrint(int mno, Member[] memb) {
+		for(int i = 0 ; i < memb.length ; i++ ) {
+			if(memb[i].mno == mno) {
+				memb[i].toPrint();
+			}
+		}
 	}
 }
