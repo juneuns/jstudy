@@ -25,7 +25,8 @@ public class Ex02 {
 	
 	public Ex02() {
 //		setOne();
-		setThree(5);
+		setThree();
+//		setThree(5);
 	}
 	public static void main(String[] args) {
 		new Ex02();
@@ -60,6 +61,25 @@ public class Ex02 {
 	
 	// 3명의 데이터를 만들고 출력해보자.
 	public void setThree() {
+		// 세명의 점수가 필요하므로 배열로 만들어 처리한다.
+		Stud[] students = new Stud[3]; // 방만 세개 만들어 뒀다.
+		
+		for(int i = 0 ; i < students.length ; i++ ) {
+			
+			int java = (int)(Math.random()*26 + 70);
+			int oracle = (int)(Math.random()*26 + 70);
+			int html = (int)(Math.random()*26 + 70);
+			int jsp = (int)(Math.random()*26 + 70);
+			
+			// 한명 성적데이터 만들고
+			Stud student = new Stud(java, oracle, html, jsp);
+			students[i] = student;
+		}
+		
+		// 출력한다.
+		for(Stud st : students) {
+			System.out.println(st);
+		}
 	}
 	
 	public void setThree(int idx) {
