@@ -1,56 +1,26 @@
-package day13;
+package day14;
 
-/*
-	문제 2]
-		Figure 클래스를 만들고
-			
-			class Figure {
-				double getArea(){
-					return 0.0;
-				}
-				public String toString(){
-					return "이것은 도형입니다.";
-				}
-			}
-		
-		
-		이 클래스를 상속받아서 Sagak(사각형), Semo(삼각형), Dongle(원) 클래스를 만들어서
-		각 도형의 내용을 출력하세요.
- */
 
-import static java.lang.Math.*; // static 의 멤버를 임포트 하는 방법
-
-public class Ex02 {
+public class Test02 {
 	
-	
-	public Ex02() {
-		int[] cnt = new int[10];
-		for(int i = 0 ; i < 10 ; i++ ) {
-			cnt[i] = (int)(Math.random() * 11);
-		}
+	public Test02() {
+		Figure f1 = new Figure();
+		Figure f2 = new Sagak();	// 자동 형변환
+		Sagak s1 = new Sagak();
+		Semo s2 = new Semo();
+		Dongle d1 = new Dongle();
 		
-		// Figure 배열 만든다.
-		Figure[] fg = new Figure[10];
-		for(int i = 0 ; i < fg.length ; i++ ) {
-			int no1 = (int)(random() * 13 + 3);
-			if(cnt[i] % 3 == 0) {
-				fg[i] = new Dongle(no1);
-			} else if( cnt[i] % 3 == 1) {
-				int no2 = (int)(random()*13 + 3);
-				fg[i] = new Semo(no1, no2);
-			} else {
-				int no2 = (int) (random()* 13 + 3);
-				fg[i] = new Sagak(no1, no2);
-			}
-		} // 배열이 완성이 됬다.
-		
-		// 출력하기
-		for(int i = 0 ; i < fg.length ; i++ ) {
-			System.out.println(fg[i]);
-		}
+		System.out.println(s1 instanceof Sagak);
+		System.out.println(s1 instanceof Figure); // Figure > Sagak 
+		System.out.println((Figure)s1 instanceof Semo);
+		System.out.println(f1 instanceof Figure);
+//		System.out.println((Sagak)f1 instanceof Sagak);// 형변환은 되지만 사용하지는 못한다. <== 멤버가 없으므로 사각형이 아니기 때문에...
+		System.out.println(f1 instanceof Semo);
+		System.out.println(f1 instanceof Dongle);
 	}
+	
 	public static void main(String[] args) {
-		new Ex02();
+		new Test02();
 	}
 
 }
