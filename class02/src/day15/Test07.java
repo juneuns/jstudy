@@ -20,12 +20,18 @@ package day15;
 public class Test07 {
 	
 	public Test07() {
+		abc();
 		
 	}
+	
 	public static void main(String[] args) {
 		new Test07();
 	}
-
+	
+	
+	public void abc() {
+		
+	}
 }
 
 
