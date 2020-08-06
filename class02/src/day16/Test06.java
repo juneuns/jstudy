@@ -27,6 +27,7 @@ public class Test06 {
 //		btn1.addActionListener(new BtnEvent02());
 //		btn1.addActionListener(setBg());
 		btn1.addActionListener(new BtnEvent04(this));
+//		btn1.addActionListener(new BtnEvent04());
 		
 		btn2 = new JButton("닫   기");
 		
@@ -40,6 +41,9 @@ public class Test06 {
 				System.exit(0);
 			}
 		});
+		/*
+		f.addWindowListener(new MyEvt());
+		 */
 		
 		btn1.setPreferredSize(new Dimension(143, 30));
 		btn2.setPreferredSize(new Dimension(143, 30));
@@ -121,10 +125,25 @@ class BtnEvent04 implements ActionListener {
 		int red = (int)(Math.random()*256);
 		int green = (int)(Math.random()*256);
 		int blue = (int)(Math.random()*256);
-		
+//		Test06 main1 = new Test06();
 		// Color 객체를 만들고
 		Color color = new Color(red, green, blue);
 		main.pan.setBackground(color);
 	}
-	
 }
+
+class MyEvt extends WindowAdapter {
+	public void windowClosing(WindowEvent e) {
+		System.exit(0);
+	}
+}
+
+/*
+class MyEvt implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+}
+*/
