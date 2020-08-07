@@ -66,11 +66,13 @@ class AddClass02 {
 	}
 	
 	public void setMain() {
-		String sno = JOptionPane.showInputDialog("정수 입력!");
+//		String sno = JOptionPane.showInputDialog("정수 입력!");
 		int no = 0 ;
-		
+		JColorChooser choice = new JColorChooser();
+		Color color = choice.showDialog(null, "Color Choice", Color.WHITE);
+		System.out.println("###################");
 		try {
-			no = Integer.parseInt(sno);
+//			no = Integer.parseInt(sno);
 		} catch(Exception e) {
 			no = -999;
 			e.printStackTrace();
