@@ -13,11 +13,11 @@ public class Test01 {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		f.setLayout(new BorderLayout());
 		// 색상이 표현될 메인 판 만들고
-		pan = new JPanel();
+		pan = new JPanel(new BorderLayout());
 		pan.setBackground(Color.ORANGE);
 		
 		// 버튼이 위치할 판 만들고
-		sub = new JPanel(new BorderLayout());
+		sub = new JPanel();
 		sub.setPreferredSize(new Dimension(300, 30));
 		
 		// 버튼 만들고
@@ -37,6 +37,7 @@ public class Test01 {
 		BtnEvent01 evt01 = new BtnEvent01(this); 
 		ActionListener evt1 = evt01; // 자동형변환
 		btn2.addActionListener(evt1);
+		
 		btn1.setPreferredSize(new Dimension(143, 30));
 		btn2.setPreferredSize(new Dimension(143, 30));
 		
@@ -80,7 +81,7 @@ class BtnEvent03 {
 		sub.setPreferredSize(new Dimension(360, 30));
 		
 		// 버튼 만들고
-		btn1 = new JButton("색 변경");
+		btn1 = new JButton("색선택");
 		// 색상변경 이벤트 추가
 		btn1.addActionListener(new ActionListener() {
 			
@@ -90,7 +91,11 @@ class BtnEvent03 {
 				JColorChooser cc01 = new JColorChooser();
 				// Color 객체를 만들고
 				Color color = cc01.showDialog(cc01, "색선택", Color.WHITE);
+				
+				// 전역변수에 데이터 기억시키고
 				mColor = color;
+				
+				// 패널에 배경색 적용시키고
 				pan.setBackground(color);
 			}
 			
@@ -111,6 +116,9 @@ class BtnEvent03 {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				main.pan.setBackground(mColor);
+				
+				String str = mColor.getRed() + ", " + mColor.getGreen() + ", " + mColor.getBlue();
+ 				System.out.println(str);
 				main.pan.setBackground(pan.getBackground());
 			}
 		});
