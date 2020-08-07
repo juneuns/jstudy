@@ -64,10 +64,12 @@ class BtnEvent03 {
 	JFrame f;
 	JPanel pan, sub;
 	JButton btn1, btn2, btn3;
+	Color mColor;
 	
 	public BtnEvent03(Test01 main) {
 		this.main = main;
 		f = new JFrame("*** 색 변경 ***");
+//		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// 색상이 표현될 메인 판 만들고
 		pan = new JPanel();
@@ -88,6 +90,7 @@ class BtnEvent03 {
 				JColorChooser cc01 = new JColorChooser();
 				// Color 객체를 만들고
 				Color color = cc01.showDialog(cc01, "색선택", Color.WHITE);
+				mColor = color;
 				pan.setBackground(color);
 			}
 			
@@ -95,16 +98,22 @@ class BtnEvent03 {
 
 		btn2 = new JButton("닫   기");
 		
-//		BtnEvent03 cWin = this;
 		// 버튼에 이벤트 추가하기
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				f.setVisible(false);
-//				cWin.f.dispose();
+//				f.dispose();
 			}
 		});
 		
-		btn3 = new JButton("메인 색변경");
+		btn3 = new JButton("메인색변경");
+		btn3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				main.pan.setBackground(mColor);
+				main.pan.setBackground(pan.getBackground());
+			}
+		});
 
 		btn1.setPreferredSize(new Dimension(117, 30));
 		btn2.setPreferredSize(new Dimension(117, 30));
