@@ -92,7 +92,10 @@ class Samgak {
 class Excpt02 extends Exception {
 	public String toString() {
 		String s = getClass().getName();
-        String message = "15보다 큰 숫자입니다.";
-        return (message != null) ? (s + ": " + message) : s;
+        String message = "3보다 작은 숫자입니다.";
+        return s + ": " + message;
+		/*
+		 * return (message != null) ? (s + ": " + message) : s;
+		 */	
 	}
 }

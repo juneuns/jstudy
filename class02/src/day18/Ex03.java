@@ -36,6 +36,9 @@ public class Ex03 {
 			// 과목점수를 만든다.
 			int[] score = new int[4];
 			for(int j = 0 ; j < 4 ; j++ ) {
+				
+//				Math m1 = new Math(); // 이렇게 new 시킬려고 하면 아니되옵니다...!
+				
 				score[j] = (int)(Math.random()*41 + 60);
 			}
 			stud[i] = new Stud(name, score[0], score[1], score[2], score[3]);
