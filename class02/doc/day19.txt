@@ -157,6 +157,13 @@ StringTokenizer
 			
 		2. StringTokenizer(String str, String delim)
 			==> 문자열을 지정한 문자(String delim)을 중심으로 나눠주는 기능
+			
+				만약 delim 구분자를 문자열로 입력하는 경우는
+				각 문자별로 짜르게 된다.
+				
+				String str = "a,b|c&d";
+				
+				StringTokenizer token = new StringTokenizer(str, ",|&"); ==> "," || "|" || "&" 의 의미가 된다.
 		
 		3. StringTokenize(String str, String delim, boolean returnDelims)
 			==> 2번 기능에 분리 문자도 추가할지 말지를 결정해서 나눠준다.
