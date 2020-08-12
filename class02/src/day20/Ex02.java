@@ -65,7 +65,8 @@ class Score {
 		total = java + oracle + web + jsp;
 	}
 	
-	public String toString() {
+	@Override
+	public String toString() { // toString() 오버라이딩
 		MessageFormat form = new MessageFormat("{0} - java : {1}, oracle : {2}, web : {3}, jsp : {4}, total : {5}");
 		Object[] obj = {name, java, oracle, web, jsp, total};
 		String result = form.format(obj);
