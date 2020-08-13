@@ -1,6 +1,5 @@
 package day21;
 
-import java.util.ArrayList;
 
 /*
 	랜덤하게 10 ~ 50 사이의 반지름을 가지는 Won을

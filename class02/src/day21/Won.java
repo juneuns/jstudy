@@ -4,6 +4,7 @@ import java.text.*;
 
 public class Won implements Comparable {
 	private final int ISSTR = 1000;
+	private int SORT = 1;
 	private int rad; // 반지름 기억할 변수
 	private double arround; // 둘레 기억할 변수
 	private double area; // 넓이 기억할 변수
@@ -49,11 +50,17 @@ public class Won implements Comparable {
 		// 당연히 Object 가지고 있는 멤버는 모두 가지고 있게 된다.
 		return "Circle : rad = " + rad + ", arround = " + getArround(ISSTR) + ", area = " + getArea(ISSTR) ;
 	}
+	
+	public void setSort() {
+		SORT *= -1;
+	}
+	
 	@Override
 	public int compareTo(Object o) {
+		
 		Won won = (Won) o;
 		double area1 = won.getArea();
-		return (area - area1) < 0 ? -1 : 1;
+		return ((area - area1) < 0 ? -1 : 1) * SORT;
 	}
 	
 }

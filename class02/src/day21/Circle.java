@@ -15,7 +15,7 @@ public class Circle {
 		this.rad = rad;
 	}
 	public String getArround(int code) {
-		DecimalFormat form = new DecimalFormat("###############.##");
+		DecimalFormat form = new DecimalFormat("###############.00");
 		String str = form.format(arround);
 		return str;
 	}
@@ -29,7 +29,7 @@ public class Circle {
 		this.arround = arround;
 	}
 	public String getArea(int code) {
-		DecimalFormat form = new DecimalFormat("###############.##");
+		DecimalFormat form = new DecimalFormat("###############.00");
 		String str = form.format(area);
 		return str;
 	}
