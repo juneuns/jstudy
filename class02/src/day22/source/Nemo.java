@@ -34,7 +34,7 @@ public class Nemo {
 		this.garo = garo;
 		this.sero = sero;
 		
-		System.out.println(garo + " - " + sero);
+//		System.out.println(garo + " - " + sero);
 		setArea();
 	}
 	
@@ -75,6 +75,11 @@ public class Nemo {
 	public int hashCode() {
 		return area;
 //		return sero;
+	}
+
+	@Override
+	public String toString() {
+		return "Nemo [garo=" + garo + ", sero=" + sero + ", area=" + area + "]";
 	}
 
 }
