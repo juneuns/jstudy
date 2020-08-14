@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class Ex03 {
 	ArrayList sort = new ArrayList();
 	ArrayList stud = new ArrayList();
-	ArrayList list = new ArrayList();
+	ArrayList<String> list = new ArrayList<String>();
 
 	public Ex03() {
 		list.add("둘리");
@@ -44,7 +44,7 @@ public class Ex03 {
 				JOptionPane.showMessageDialog(null, "프로그램을 종료합니다.");
 				break;
 			}
-			Comparator c = getComp(str);
+			Comparator<?> c = getComp(str);
 			Collections.sort(stud, c);
 			// 출력
 			String msg = "";
@@ -63,7 +63,6 @@ public class Ex03 {
 	// 정렬 방식 반환해주는 함수
 	public Comparator getComp(String sub) {
 		Comparator c = null;
-		
 		switch(sub) {
 		case "name":
 			c = (Comparator)sort.get(0);
