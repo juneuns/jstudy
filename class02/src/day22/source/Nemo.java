@@ -3,8 +3,6 @@ package day22.source;
 public class Nemo {
 	private int garo, sero, area;
 	
-	Nemo tmp;
-	
 	public Nemo() {
 	}
 	
@@ -49,7 +47,6 @@ public class Nemo {
 	
 	@Override
 	public boolean equals(Object o) {
-		tmp = (Nemo) o;
 		// 먼저 o 를 Nemo 타입으로 변환해준다.
 		/*
 		Nemo n = (Nemo) o;
@@ -60,7 +57,7 @@ public class Nemo {
 		return (this.area == n.getArea());
 		 */
 		
-		return (area == ((Nemo)o).getArea());
+		return (sero == ((Nemo)o).getSero());
 	}
 	
 	/*
@@ -75,7 +72,7 @@ public class Nemo {
 	 */
 
 	public int hashCode() {
-		return 1;
+		return sero;
 	}
 
 }

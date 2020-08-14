@@ -6,6 +6,7 @@ public class Test02 {
 
 	public Test02() {
 		HashSet set = new HashSet();
+		// 세로가 같으면 같은 클래스가 되게 구현된 네모 입력...
 		for(int i = 0 ; i < 8 ; i++ ) {
 			Nemo n = getNemo();
 			set.add(n);
@@ -15,9 +16,9 @@ public class Test02 {
 		
 		System.out.println("set.size() : " + set.size());
 		
+		// 
 		for(Object o : set) {
 			System.out.println(((Nemo)o).getArea() + " : " + ((Nemo)o).getGaro() + ", " + ((Nemo)o).getSero() + " | " + ((Nemo)o).hashCode());
-			
 		}
 	}
 	
