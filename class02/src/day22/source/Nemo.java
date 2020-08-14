@@ -57,7 +57,8 @@ public class Nemo {
 		return (this.area == n.getArea());
 		 */
 		
-		return (sero == ((Nemo)o).getSero());
+		return (area == ((Nemo)o).getArea());
+//		return (sero == ((Nemo)o).getSero());
 	}
 	
 	/*
@@ -72,7 +73,8 @@ public class Nemo {
 	 */
 
 	public int hashCode() {
-		return sero;
+		return area;
+//		return sero;
 	}
 
 }

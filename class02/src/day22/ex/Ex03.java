@@ -39,10 +39,11 @@ public class Ex03 {
 		});
 		
 		setVar();
-		toPrint();
+		setStud(set);
+		toPrint(set);
 		
 		System.out.println("---------------------------------------------------");
-		setVar(set2);
+		setStud(set2);
 		toPrint(set2);
 	}
 	
@@ -53,6 +54,9 @@ public class Ex03 {
 		names.add("희동이");
 		names.add("또치");
 		names.add("도우너");
+	}
+	
+	public void setStud(TreeSet set) {
 		
 		for(Object o : names) {
 			int ban = (int) (Math.random()*5 + 1);
@@ -60,15 +64,7 @@ public class Ex03 {
 			Student stud = new Student((String)o, ban, score);
 			set.add(stud);
 		}
-	}
-	
-	public void setVar(TreeSet set) {
-		for(Object o : names) {
-			int ban = (int) (Math.random()*5 + 1);
-			int score = (int)(Math.random()*41 + 60);
-			Student stud = new Student((String)o, ban, score);
-			set.add(stud);
-		}
+		
 	}
 	
 	// 출력함수
