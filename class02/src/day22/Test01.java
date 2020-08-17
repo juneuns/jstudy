@@ -52,6 +52,7 @@ public class Test01 {
 			System.out.println(o);
 		}
 		
+//		Collections.sort(set);
 		System.out.println("\n# 정렬 후 출력 2");
 		for(Object o : set) {
 			System.out.println(o);
