@@ -22,6 +22,7 @@ public class Ex02 {
 	ArrayList<String> names;
 	TreeMap<Integer, Student> map1;
 	TreeMap<String, Student> map2;
+	
 	int[] score;
 	
 	public Ex02() {
@@ -31,12 +32,12 @@ public class Ex02 {
 		
 		map1 = new TreeMap<Integer, Student>();
 		for(int i = 0 ; i < noList.size(); i++ ) {
-			map1.put(noList.get(i), new Student(noList.get(i), names.get(i), setScore()));
+			map1.put(noList.get(i), new Student(noList.get(i), names.get(i), sList.setScore()));
 		}
 		
 		map2 = new TreeMap<String, Student>();
 		for(int i = 0 ; i < names.size() ; i++ ) {
-			map2.put(names.get(i), new Student(noList.get(i), names.get(i), setScore()));
+			map2.put(names.get(i), new Student(noList.get(i), names.get(i), sList.setScore()));
 		}
 		
 		for(;;) {
@@ -111,13 +112,6 @@ public class Ex02 {
 		JOptionPane.showMessageDialog(null, msg);
 	}
 	
-	public int[] setScore() {
-		score = new int[4];
-		for(int i = 0 ; i < 4; i++ ) {
-			score[i] = (int)(Math.random()*41 + 60);
-		}
-		return score;
-	}
 
 	public static void main(String[] args) {
 		new Ex02();

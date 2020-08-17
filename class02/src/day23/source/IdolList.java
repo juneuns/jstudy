@@ -19,7 +19,7 @@ public class IdolList {
 	}
 	
 	public ArrayList<String> setNames(){
-		ArrayList<String> names = new ArrayList<String>();
+//		ArrayList<String> names = new ArrayList<String>();
 		names.add("우지윤");
 		names.add("안지영");
 		names.add("린다G");
@@ -27,5 +27,22 @@ public class IdolList {
 		names.add("조이");
 		
 		return names;
+	}
+	
+
+	public int[] setScore() {
+		int[] score = new int[4];
+		for(int i = 0 ; i < 4; i++ ) {
+			score[i] = (int)(Math.random()*41 + 60);
+		}
+		return score;
+	}
+	
+	public int[] setScore(int cnt) {
+		int[] score = new int[cnt];
+		for(int i = 0 ; i < cnt; i++ ) {
+			score[i] = (int)(Math.random()*41 + 60);
+		}
+		return score;
 	}
 }
