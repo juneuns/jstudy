@@ -36,14 +36,22 @@ public class Test04 {
 			// 3. 여러문자를 입력받아서 출력(주로 네트워크 처리를 할 때 많이 사용하는 방법)
 			byte[] buff = new byte[256];
 			Arrays.fill(buff, (byte)'A');
+			/*
+			for(int i = 0 ; i < 11 ; i++ ) {
+				int ch1 = System.in.read();
+				String str = new String(ch1 + "");
+				System.out.println("입력한 문장 : " + str);
+				
+			}
+			 */
 			int len = System.in.read(buff, 10, 100);
+
 			/*
 				준비된 배열 buff에 11번째 부터 읽은 내용을 기억하세요.
 				최대 100개를 읽으세요.(100글자만 입력받겠다...)
 			 */
 			String str = new String(buff, 0, len + 10);
 			System.out.println("입력한 문장 : " + str);
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

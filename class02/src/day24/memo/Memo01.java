@@ -10,9 +10,12 @@ public class Memo01 {
 	JPanel pan;
 	JScrollPane span;
 	JTextArea area;
-	JButton btn1, btn2;
+	JButton btn1, btn2, obtn;
+	String path = "D:\\";
+	JFileChooser choice;
 	
 	public Memo01() {
+		choice = new JFileChooser(path);
 		setFrame();
 		// 이벤트 추가
 		addEvent();
@@ -28,11 +31,13 @@ public class Memo01 {
 //		area.setEnabled(true);
 		span = new JScrollPane(area);
 		
-		pan = new JPanel(new GridLayout(1,2));
+		pan = new JPanel(new GridLayout(1,3));
 		
 		btn1 = new JButton("save");
 		btn2 = new JButton("close");
+		obtn = new JButton("open");
 		
+		pan.add(obtn);
 		pan.add(btn1);
 		pan.add(btn2);
 		
@@ -59,6 +64,37 @@ public class Memo01 {
 			}
 		});
 		
+		obtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int no = choice.showOpenDialog(frame);
+				if( no == 0) {
+					File file = choice.getSelectedFile();
+					FileInputStream fin = null;
+					BufferedInputStream bin = null;
+					StringBuffer buffer = new StringBuffer();
+					try {
+						fin = new FileInputStream(file);
+						bin = new BufferedInputStream(fin);
+						byte[] buff = new byte[1024];
+						while(true) {
+							int len = bin.read(buff);
+							if(len == -1) break;
+							buffer.append(new String(buff, 0, len));
+						}
+						
+						String str = new String(buffer.toString().getBytes());
+						area.setText(str);
+					} catch(Exception e1) {
+						e1.printStackTrace();
+					} finally {
+						try {
+							bin.close();
+							fin.close();
+						} catch(Exception e1) {}
+					}
+				}
+			}
+		});
 	}
 	
 	// 파일 저장 함수
@@ -68,10 +104,20 @@ public class Memo01 {
 		FileOutputStream fout = null;
 		BufferedOutputStream bout = null;
 		try {
-			fout = new FileOutputStream("src/day24/memo/test01.txt");
-			bout = new BufferedOutputStream(fout);
-			bout.write(buff);
-			bout.flush();
+			int num = choice.showSaveDialog(frame);
+			if(num == 0) {
+				File file = choice.getSelectedFile();
+				
+				path = file.getPath();
+				String sfile = file.getName();
+				
+				fout = new FileOutputStream(file);
+				bout = new BufferedOutputStream(fout);
+				bout.write(buff);
+				bout.flush();
+				
+				JOptionPane.showMessageDialog(null, sfile + "\n파일을 저장했습니다." );
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
