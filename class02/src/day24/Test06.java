@@ -6,6 +6,7 @@ package day24;
  */
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -41,7 +42,8 @@ public class Test06 {
 			// 3. 파일의 전체 내용을 읽어보자.
 			// 파일의 내용은 몇번을 읽어야 할지 알 수 없으므로 반복문으로 처리한다.
 			// byte[] 준비하고
-			byte[] buff = new byte[1024];
+			ArrayList<byte[]> list = new ArrayList<byte[]>();
+			byte[] buff = new byte[1023];
 			int i = 0 ;
 			while(true) {
 //				System.out.print(i++);
@@ -55,9 +57,24 @@ public class Test06 {
 					// 이 경우는 다 읽은 경우이므로 반복문을 종료시킨다.
 					break;
 				}
-				String str = new String(buff, 0, len);
-				System.out.print(str);
+				byte[] tmp = new byte[len];
+				System.arraycopy(buff, 0, tmp, 0, len);
+				list.add(tmp);
+//				String str = new String(buff, 0, len);
+//				System.out.print(str);
 			}
+			int len = 0 ;
+			for(byte[] b : list) {
+				len += b.length;
+			}
+			byte[] b = new byte[len];
+			for(int j = 0 ; j < list.size() ; j++) {
+				byte[] tmp = list.get(j);
+				System.arraycopy(tmp, 0, b, (j == 0)? 0:list.get(j-1).length, tmp.length);
+			}
+			
+			String str = new String(b);
+			System.out.print(str);
 //			JOptionPane.showMessageDialog(null, str);
 			
 		} catch(Exception e) {

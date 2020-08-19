@@ -16,6 +16,8 @@ public class Memo01 {
 	
 	public Memo01() {
 		choice = new JFileChooser(path);
+		
+		// 윈도우 셋팅...
 		setFrame();
 		// 이벤트 추가
 		addEvent();
