@@ -2,6 +2,7 @@ package day27.dao;
 
 
 import java.sql.*;
+import java.util.*;
 
 import DB.*;
 import day27.sql.*;
@@ -22,7 +23,31 @@ public class MemberDao {
 //	public int addMemb(String id, String name, String pw, String mail, String tel, String gen, int avt) {
 	public int addMemb(MemberVO mVO) {
 		int cnt = 0 ;
-		
+		// 할일
+		// 1. 커넥션 얻어오고
+		con = db.getCon();
+		// 2. 질의명령 꺼내오고
+		String sql = mSQL.getSQL(mSQL.ADD_MEMB);
+		// 3. PreparedStatement 만들고
+		pstmt = db.getPSTMT(con, sql);
+		try{
+			// 4. 질의명령 완성하고
+			pstmt.setString(1, mVO.getId());
+			pstmt.setString(2, mVO.getName());
+			pstmt.setString(3, mVO.getPw());
+			pstmt.setString(4, mVO.getMail());
+			pstmt.setString(5, mVO.getTel());
+			pstmt.setString(6, mVO.getGen());
+			pstmt.setInt(7, mVO.getAvt());
+			// 5. 질의명령 실행 요청하고 결과 반환받고
+			cnt = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(pstmt);
+			db.close(con);
+		}
+		// 6. 결과 반환해주고
 		return cnt;
 	}
 	
@@ -54,5 +79,25 @@ public class MemberDao {
 		
 		// 7. 데이터 내보내고
 		return cnt;
+	}
+	
+	public ArrayList<String> getList(){
+		ArrayList<String> list = new ArrayList<String>();
+		con = db.getCon();
+		String sql = mSQL.getSQL(mSQL.SEL_ID_LIST);
+		stmt = db.getSTMT(con);
+		try {
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				list.add(rs.getString("id"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(stmt);
+			db.close(con);
+		}
+		return list;
 	}
 }

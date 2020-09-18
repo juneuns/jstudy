@@ -40,7 +40,7 @@ public class Test02 {
 		lid.setHorizontalAlignment(JLabel.RIGHT);
 		lid.setPreferredSize(new Dimension(80, 30));
 		id = new JTextField("아이디를 입력하세요.");
-		id.setForeground(Color.ORANGE);
+		id.setForeground(Color.DARK_GRAY);
 		idPan.add(lid, BorderLayout.WEST);
 		idPan.add(id, BorderLayout.CENTER);
 		
@@ -52,7 +52,7 @@ public class Test02 {
 		lname.setHorizontalAlignment(JLabel.RIGHT);
 		lname.setPreferredSize(new Dimension(80, 30));
 		name = new JTextField("이름을 입력하세요.");
-		name.setForeground(Color.ORANGE);
+		name.setForeground(Color.DARK_GRAY);
 		namePan.add(lname, BorderLayout.WEST);
 		namePan.add(name, BorderLayout.CENTER);
 		
@@ -64,7 +64,7 @@ public class Test02 {
 		lpw.setHorizontalAlignment(JLabel.RIGHT);
 		lpw.setPreferredSize(new Dimension(80, 30));
 		pw = new JTextField("비밀번호를 입력하세요.");
-		pw.setForeground(Color.ORANGE);
+		pw.setForeground(Color.DARK_GRAY);
 		pwPan.add(lpw, BorderLayout.WEST);
 		pwPan.add(pw, BorderLayout.CENTER);
 		
@@ -76,7 +76,7 @@ public class Test02 {
 		lmail.setHorizontalAlignment(JLabel.RIGHT);
 		lmail.setPreferredSize(new Dimension(80, 30));
 		mail = new JTextField("메일을 입력하세요.");
-		mail.setForeground(Color.ORANGE);
+		mail.setForeground(Color.DARK_GRAY);
 		mailPan.add(lmail, BorderLayout.WEST);
 		mailPan.add(mail, BorderLayout.CENTER);
 		
@@ -88,7 +88,7 @@ public class Test02 {
 		ltel.setHorizontalAlignment(JLabel.RIGHT);
 		ltel.setPreferredSize(new Dimension(80, 30));
 		tel = new JTextField("전화번호를 입력하세요. 예 ] 010-1234-9876");
-		tel.setForeground(Color.ORANGE);
+		tel.setForeground(Color.DARK_GRAY);
 		telPan.add(ltel, BorderLayout.WEST);
 		telPan.add(tel, BorderLayout.CENTER);
 		
@@ -100,7 +100,7 @@ public class Test02 {
 		lgen.setHorizontalAlignment(JLabel.RIGHT);
 		lgen.setPreferredSize(new Dimension(80, 30));
 		gen = new JTextField("성별을 입력하세요. 예 ] M");
-		gen.setForeground(Color.ORANGE);
+		gen.setForeground(Color.DARK_GRAY);
 		genPan.add(lgen, BorderLayout.WEST);
 		genPan.add(gen, BorderLayout.CENTER);
 		
@@ -112,7 +112,7 @@ public class Test02 {
 		lavt.setHorizontalAlignment(JLabel.RIGHT);
 		lavt.setPreferredSize(new Dimension(80, 30));
 		avt = new JTextField("아바타번호를 입력하세요.");
-		avt.setForeground(Color.ORANGE);
+		avt.setForeground(Color.DARK_GRAY);
 		avtPan.add(lavt, BorderLayout.WEST);
 		avtPan.add(avt, BorderLayout.CENTER);
 		
