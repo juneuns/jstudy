@@ -13,7 +13,10 @@ public class Test02 {
 	JTextArea area;
 	JTextField id, name, pw, mail, tel, gen, avt;
 	JButton btn1, btn2;
+	
+	MemberDao mDao;
 	public Test02() {
+		mDao = new MemberDao();
 		setUI();
 	}
 	
@@ -125,6 +128,8 @@ public class Test02 {
 		// 버튼
 		btn1 = new JButton("가입");
 		btn2 = new JButton("종료");
+		// 버튼 이벤트 처리
+		joinEvt();
 		
 		btn1.setPreferredSize(new Dimension(225, 30));
 		btn2.setPreferredSize(new Dimension(225, 30));
@@ -140,6 +145,57 @@ public class Test02 {
 		frame.setVisible(true);
 	}
 	
+	// 가입버튼 이벤트 처리함수
+	public void joinEvt() {
+		btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 입력된 아이디 읽어온다.
+				String sid = id.getText();
+				// 질의명령 보내서 카운트 받아온다.
+				int cnt = mDao.idCount(sid);
+				// 카운트 값에 따라 적당히 처리해준다.
+				if(cnt == 1) {
+					// 이때는 입력한 아이디를 사용하는 사람이 이미 있는 경우다.
+					// 따라서 다시 입력받아야 한다.
+					id.setText("");
+					JOptionPane.showMessageDialog(null, "<html><h2 style=\"color: red\">" + sid + " 는 이미 사용중인 아이디 입니다.</h2></html>");
+					return;
+				} else {
+					JOptionPane.showMessageDialog(null, "<html><h2 style=\"color: blue\">" + sid + " 는 사용가능한 아이디 입니다.</h2></html>");
+				}
+				
+				// 데이터 꺼내온다.
+				// 1. 이름
+				String sname = name.getText();
+				String spw = pw.getText();
+				String smail = mail.getText();
+				String stel = tel.getText();
+				String sgen = gen.getText();
+				int sno = Integer.parseInt(avt.getText());
+				
+				// vo 에 담는다.
+				MemberVO mVO = new MemberVO();
+				mVO.setId(sid);
+				mVO.setName(sname);
+				mVO.setPw(spw);
+				mVO.setMail(smail);
+				mVO.setTel(stel);
+				mVO.setGen(sgen);
+				mVO.setAvt(sno);
+				
+				// 다 채워진 VO 채로 데이터베이스 처리함수에게 넘겨준다.
+				cnt = 0 ;
+				cnt = mDao.addMemb(mVO);
+				
+				if(cnt == 1) {
+					JOptionPane.showMessageDialog(null, "<html><h2 style=\"color: blue\">" + sid + " 님 가입이 완료되었습니다.</h2></html>");
+				} else {
+					JOptionPane.showMessageDialog(null, "<html><h2 style=\"color: red\">" + sid + " 님 가입이 취소되었습니다.</h2></html>");
+				}
+			}
+		});
+	}
 	public static void main(String[] args) {
 		new Test02();
 	}
