@@ -100,4 +100,37 @@ public class MemberDao {
 		}
 		return list;
 	}
+	
+	public MemberVO getInfo(String sid) {
+		MemberVO mVO = new MemberVO();
+		con = db.getCon();
+		String sql = mSQL.getSQL(mSQL.SEL_ID_INFO);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setString(1, sid);
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			mVO.setMno(rs.getInt("mno"));
+			mVO.setId(sid);
+			mVO.setName(rs.getString("name"));
+			mVO.setMail(rs.getString("mail"));
+			mVO.setTel(rs.getString("tel"));
+			mVO.setGen(rs.getString("gen").equals("M") ? "남자" : "여자");
+			mVO.setAvt(rs.getInt("avt"));
+			mVO.setAvatar(rs.getString("afile"));
+			mVO.setAname(rs.getString("aname"));
+			mVO.setJoinDate(rs.getDate("joindate"));
+			mVO.setJoinTime(rs.getTime("joindate"));
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
+		}
+		
+		return mVO;
+	}
 }

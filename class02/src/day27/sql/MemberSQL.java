@@ -23,11 +23,12 @@ public class MemberSQL {
 			break;
 		case SEL_ID_INFO:
 			buff.append("SELECT ");
-			buff.append("	mno, name, mail, tel, gen, avt, joinDate ");
+			buff.append("	mno, name, mail, tel, m.gen, avt, aname, afile, joindate ");
 			buff.append("FROM ");
-			buff.append("	member01 ");
+			buff.append("	member01 m, avatar a ");
 			buff.append("WHERE ");
-			buff.append("	id = ?");
+			buff.append("	avt = ano ");
+			buff.append("	AND id = ?");
 			break;
 		case SEL_ID_CNT:
 			buff.append("SELECT ");

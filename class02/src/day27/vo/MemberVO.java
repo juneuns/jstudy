@@ -4,7 +4,7 @@ import java.sql.*;
 import java.text.*;
 public class MemberVO {
 	private int mno, avt;
-	private String id, pw, name, mail, tel, gen, sdate, avatar;
+	private String id, pw, name, mail, tel, gen, sdate, avatar, aname;
 	private Date joinDate;
 	private Time joinTime;
 	public int getMno() {
@@ -71,6 +71,12 @@ public class MemberVO {
 	}
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	public String getAname() {
+		return aname;
+	}
+	public void setAname(String aname) {
+		this.aname = aname;
 	}
 	public Date getJoinDate() {
 		return joinDate;
