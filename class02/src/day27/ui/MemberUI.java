@@ -138,7 +138,6 @@ public class MemberUI extends JFrame {
 		lbtn = new JButton("회원리스트");
 		qbtn = new JButton("작업 종료");
 		
-		
 		blout = new BorderLayout();
 		
 		MemberEvt mEvt = new MemberEvt(this);
