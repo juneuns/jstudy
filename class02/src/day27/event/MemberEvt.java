@@ -27,6 +27,7 @@ public class MemberEvt implements ActionListener{
 		}
 	}
 	
+	
 	// 리스트 가져오기 처리함수
 	public void getList() {
 		ArrayList<String> list = mDao.getList();

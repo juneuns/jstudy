@@ -5,10 +5,15 @@ import day28.sql.*;
 import day28.vo.*;
 
 import java.util.*;
+import java.sql.*;
 
 public class MemberDao {
 	MyJDBC db;
 	MemberSQL mSQL;
+	Connection con;
+	Statement stmt;
+	PreparedStatement pstmt;
+	ResultSet rs;
 	
 	public MemberDao() {
 		db = new MyJDBC();
@@ -19,7 +24,28 @@ public class MemberDao {
 	public ArrayList<MemberVO> getList(){
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		
-		
+		con = db.getCon();
+		String sql = mSQL.getSQL(mSQL.SEL_MEMB_LIST);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO mVO = new MemberVO();
+				
+				mVO.setMno(rs.getInt("mno"));
+				mVO.setId(rs.getString("id"));
+				mVO.setName(rs.getString("name"));
+				mVO.setMail(rs.getString("mail"));
+				
+				list.add(mVO);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
+		}
 		
 		return list;
 	}
