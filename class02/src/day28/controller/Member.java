@@ -7,8 +7,11 @@ import javax.swing.*;
 import day28.evt.*;
 
 public class Member {
-	JFrame fr;
+	public JFrame fr;
+	public MemberJoin join;
+	
 	public Member() {
+		join = new MemberJoin(this);
 		fr = new JFrame();
 		fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

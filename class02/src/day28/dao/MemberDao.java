@@ -49,4 +49,11 @@ public class MemberDao {
 		
 		return list;
 	}
+	
+	// 아이디 카운트 조회 전담 처리함수
+	public int idCount(String id) {
+		int cnt = 0 ; 
+		
+		return cnt;
+	}
 }

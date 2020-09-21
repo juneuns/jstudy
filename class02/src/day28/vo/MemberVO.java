@@ -5,7 +5,7 @@ import java.text.*;
 
 public class MemberVO {
 	private int mno, ano;
-	private String id, name, mail, tel, avatar, aname, gen, sdate;
+	private String id, pw, name, mail, tel, avatar, aname, gen, sdate;
 	private Date joinDate;
 	private Time joinTime;
 	public int getMno() {
@@ -25,6 +25,12 @@ public class MemberVO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 	public String getName() {
 		return name;

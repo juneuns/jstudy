@@ -53,6 +53,9 @@ public class MemberEvent implements ActionListener {
 	
 	// 회원가입 처리함수
 	public void addMemb() {
-		
+		// 메인폼 감추고
+		main.fr.setVisible(false);
+		// 조인폼 보이게 하고
+		main.join.setVisible(true);
 	}
 }
