@@ -9,9 +9,11 @@ import day28.evt.*;
 public class Member {
 	public JFrame fr;
 	public MemberJoin join;
+	public MemberList mList;
 	
 	public Member() {
 		join = new MemberJoin(this);
+		mList = new MemberList(this);
 		fr = new JFrame();
 		fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

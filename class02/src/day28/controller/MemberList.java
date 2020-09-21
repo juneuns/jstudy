@@ -5,14 +5,30 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MemberList extends JFrame {
-	public JPanel mainPan;
-	public MemberList() {
+	public Member main;
+	public JPanel mainPan, topPan;
+	public Dimension dim1 = new Dimension(60, 20);
+	public Dimension dim2 = new Dimension(100, 20);
+	public Dimension dim3 = new Dimension(120, 20);
+	public Dimension dim4 = new Dimension(160, 20);
+	
+	public MemberList(Member main) {
+		this.main = main;
+		
 		this.setTitle("### 회원 리스트 ###");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		mainPan = new JPanel();
+		mainPan.setPreferredSize(new Dimension(370, 270));
+		topPan = new JPanel(new BorderLayout());
+		topPan.setPreferredSize(new Dimension(370, 20));
 		
-		JPanel titleP = new JPanel(new GridLayout(1, 4));
-		titleP.setPreferredSize(new Dimension(380, 15));
+		JPanel titleP = new JPanel(new BorderLayout());
+		titleP.setPreferredSize(new Dimension(380, 20));
+		
+		JPanel cPan = new JPanel(new BorderLayout());
+		cPan.setPreferredSize(dim4);
+		
 		JLabel noLbl = new JLabel("회원번호");
 		noLbl.setHorizontalAlignment(JLabel.CENTER);
 		JLabel idLbl = new JLabel("아 이 디");
@@ -23,34 +39,40 @@ public class MemberList extends JFrame {
 		mailLbl.setHorizontalAlignment(JLabel.CENTER);
 		
 		// 라벨 크기 지정
-		Dimension dim1 = new Dimension(60, 15);
-		Dimension dim2 = new Dimension(100, 15);
-		Dimension dim3 = new Dimension(120, 15);
 		noLbl.setPreferredSize(dim1);
-		idLbl.setPreferredSize(dim2);
-		nameLbl.setPreferredSize(dim3);
-		mailLbl.setPreferredSize(dim3);
+		idLbl.setPreferredSize(dim1);
+		nameLbl.setPreferredSize(dim1);
+		mailLbl.setPreferredSize(dim4);
 		
-		titleP.add(noLbl);
-		titleP.add(idLbl);
-		titleP.add(nameLbl);
-		titleP.add(mailLbl);
+		
+		cPan.add(idLbl, BorderLayout.WEST);
+		cPan.add(nameLbl, BorderLayout.CENTER);
+		
+		titleP.add(noLbl, BorderLayout.WEST);
+		titleP.add(mailLbl, BorderLayout.EAST);
+		titleP.add(cPan, BorderLayout.CENTER);
+		/*
+		 * titleP.add(noLbl); titleP.add(idLbl); titleP.add(nameLbl);
+		 * titleP.add(mailLbl);
+		 */
 		
 		JPanel hPan = new JPanel();
 		hPan.setPreferredSize(new Dimension(380, 1));
 		hPan.setBackground(Color.LIGHT_GRAY);
 		
-		mainPan.add(titleP);
-		mainPan.add(hPan);
+		topPan.add(titleP, BorderLayout.CENTER);
+		topPan.add(hPan, BorderLayout.SOUTH);
 		
-		this.add(mainPan);
+		JScrollPane span = new JScrollPane(mainPan);
+		span.setPreferredSize(new Dimension(380, 280));
+		
+		this.add(topPan, BorderLayout.NORTH);
+		this.add(span, BorderLayout.CENTER);
 		
 		this.setSize(400, 300);
-		this.setVisible(true);
+		this.pack();
+		this.setVisible(false);
 		this.setResizable(false);
 	}
 	
-	public static void main(String[] args) {
-		new MemberList();
-	}
 }
