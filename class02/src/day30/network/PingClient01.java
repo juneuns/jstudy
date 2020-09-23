@@ -7,6 +7,7 @@ package day30.network;
  */
 import java.net.*;
 import java.io.*;
+import javax.swing.*;
 public class PingClient01 {
 
 	public PingClient01() {
@@ -36,7 +37,8 @@ public class PingClient01 {
 			buff = new byte[1024];
 			int len = in.read(buff);
 			str = new String(buff, 0, len);
-			System.out.println("받은 내용 : " + str);
+//			System.out.println("받은 내용 : " + str);
+			JOptionPane.showMessageDialog(null, "받은 내용 : " + str );
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
