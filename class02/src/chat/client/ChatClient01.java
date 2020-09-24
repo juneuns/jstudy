@@ -20,6 +20,7 @@ import java.util.*;
 
 import chat.client.thread.*;
 public class ChatClient01 extends JFrame {
+	// 화면 관련 변수
 	public JTextArea area;
 	public JTextField input;
 	public JScrollPane span;
@@ -29,12 +30,51 @@ public class ChatClient01 extends JFrame {
 	public JTextField inId;
 	public JPasswordField inPw;
 	
+	// 통신에 관련된 변수
+	public Socket socket;
+	public PrintWriter prw;
+	public BufferedReader br;
+	/*
+		채팅은 단순히 문자만 주고 받는 기능으로 만들 예정이다.
+		따라서 한줄의 문자를 손쉽게 주고 받기 위해서는
+			println()
+			readLine()
+	 */
 	public ChatClient01() {
 		setUI();
 		setLoginFr();
 		
 		// 버튼 이벤트 추가
 		addEvt(this);
+		
+		// 이제 화면이 준비가 되었으니 통신을 준비하자.
+		try {
+			// 서버에 연결을 시도하자.
+			socket = new Socket("192.168.0.21", 7788);
+			
+			// 통신에 사용할 스트림을 준비한다.
+			InputStream in = socket.getInputStream();
+			OutputStream out = socket.getOutputStream();
+			prw = new PrintWriter(out);
+			
+			InputStreamReader tmp = new InputStreamReader(in);
+			br = new BufferedReader(tmp);
+		} catch(Exception e) {
+			// 이 라인을 실행한다는 것은 작업에 문제가 생긴경우이므로
+			// 이 프로그램이 더이상 실행할 의미가 없어졌다.
+			// 따라서 이 프로그램을 종료시켜준다.
+			close();
+		}
+		
+	}
+	
+	public void close() {
+		try {
+			prw.close();
+			br.close();
+			socket.close();
+		} catch(Exception e) {}
+		System.exit(0);
 	}
 	
 	// 메인창 셋팅
@@ -59,6 +99,27 @@ public class ChatClient01 extends JFrame {
 		// 버튼
 		sendB = new JButton("send");
 		sendB.setPreferredSize(new Dimension(100, 30));
+		
+		// event 처리
+		sendB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 이함수는 send 버튼을 누르는 순간 작동하는 함수이다.
+				// 할일
+				// 1. 입력내용 알아내고
+				String str = input.getText();
+				// 2. 입력 내용을 서버에 보내고
+				if(str == null) {
+					return;
+				}
+				
+				prw.println(str);
+				prw.flush();
+				
+				// 먼저번 입력 내용을 지운다.
+				input.setText("");
+			}
+		});
 		
 		inPan.add(input, BorderLayout.CENTER);
 		inPan.add(sendB, BorderLayout.EAST);
@@ -140,8 +201,38 @@ public class ChatClient01 extends JFrame {
 		loginB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				loginFr.setVisible(false);
-				chat.setVisible(true);
+				// 이함수는 send 버튼을 누르는 순간 작동하는 함수이다.
+				// 할일
+				// 1. 입력내용 알아내고
+				String str = inId.getText();
+				// 2. 입력 내용을 서버에 보내고
+				if(str == null) {
+					return;
+				}
+				
+				prw.println("id=" + str);
+				prw.flush();
+
+				// 서버의 응답 받고
+				try {
+					str = br.readLine();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					return;
+				}
+				
+				if(str.equals("OK")) {
+					// 이제 모든것이 준비가 끝난상태이다.
+					// 데이터를 받을 준비를 한다.
+					ClientTrd01 t = new ClientTrd01(chat); // New Born
+					t.start(); // Runnable
+					
+					loginFr.setVisible(false);
+					chat.setVisible(true);
+				} else {
+					return;
+				}
+				
 			}
 		});
 		
