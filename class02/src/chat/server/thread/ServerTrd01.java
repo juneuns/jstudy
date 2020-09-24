@@ -16,8 +16,8 @@ public class ServerTrd01 extends Thread {
 	
 	// 통신 변수
 	Socket socket;
-	PrintWriter prw ;
-	BufferedReader br;
+	public PrintWriter prw ;
+	public BufferedReader br;
 	String ip, id;
 	
 	
@@ -36,10 +36,10 @@ public class ServerTrd01 extends Thread {
 		 */
 		InputStream in = socket.getInputStream();
 		OutputStream out = socket.getOutputStream();
-		prw = new PrintWriter(out);
+//		prw = new PrintWriter(out);
 		
 		InputStreamReader tmp = new InputStreamReader(in);
-		br = new BufferedReader(tmp);
+//		br = new BufferedReader(tmp);
 		
 		// 아이피 얻어내고
 		InetAddress inet = socket.getInetAddress();
@@ -57,7 +57,7 @@ public class ServerTrd01 extends Thread {
 				
 			따라서 응답내용을 꾸며준다.
 		 */
-		msg = id + " ] " + msg;
+		msg = id + " ] - " + msg;
 		
 //		System.out.println("*** server msg : " + msg);
 		

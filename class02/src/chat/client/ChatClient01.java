@@ -86,6 +86,7 @@ public class ChatClient01 extends JFrame {
 		// 채팅 목록
 		area = new JTextArea();
 		area.setEditable(false);
+		area.setFont(new Font("gulim", Font.BOLD, 16));
 		span = new JScrollPane(area);
 		span.setPreferredSize(new Dimension(420, 460));
 		
@@ -104,6 +105,7 @@ public class ChatClient01 extends JFrame {
 		sendB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				/*
 				// 이함수는 send 버튼을 누르는 순간 작동하는 함수이다.
 				// 할일
 				// 1. 입력내용 알아내고
@@ -118,6 +120,8 @@ public class ChatClient01 extends JFrame {
 				
 				// 먼저번 입력 내용을 지운다.
 				input.setText("");
+				*/
+				sendEvt();
 			}
 		});
 		
@@ -197,6 +201,23 @@ public class ChatClient01 extends JFrame {
 		loginFr.setVisible(true);
 	}
 	
+	public void sendEvt() {
+		// 이함수는 send 버튼을 누르는 순간 작동하는 함수이다.
+		// 할일
+		// 1. 입력내용 알아내고
+		String str = input.getText();
+		// 2. 입력 내용을 서버에 보내고
+		if(str == null) {
+			return;
+		}
+		
+		prw.println(str);
+		prw.flush();
+		
+		// 먼저번 입력 내용을 지운다.
+		input.setText("");
+	}
+	
 	public void addEvt(ChatClient01 chat) {
 		loginB.addActionListener(new ActionListener() {
 			@Override
@@ -222,7 +243,9 @@ public class ChatClient01 extends JFrame {
 					return;
 				}
 				
-				if(str.equals("OK")) {
+				if(str == null || !str.equals("OK")) {
+					close();
+				} else if(str.equals("OK")) {
 					// 이제 모든것이 준비가 끝난상태이다.
 					// 데이터를 받을 준비를 한다.
 					ClientTrd01 t = new ClientTrd01(chat); // New Born
@@ -231,6 +254,7 @@ public class ChatClient01 extends JFrame {
 					loginFr.setVisible(false);
 					chat.setVisible(true);
 				}
+				
 			}
 		});
 		
@@ -239,6 +263,26 @@ public class ChatClient01 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
+		});
+		
+		input.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				char ch = e.getKeyChar();
+				if((int)ch == 10) {
+					sendEvt();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+			
 		});
 	}
 	

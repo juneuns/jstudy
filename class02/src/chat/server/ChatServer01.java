@@ -25,12 +25,14 @@ public class ChatServer01{
 	 */
 	public ArrayList<ServerTrd01> clientList;
 //	public HashMap<String, String> map; // id = ip
-	
+	public ArrayList<String> idList;
 	public ChatServer01() {
 		// 접속 대기 소켓을 준비한다.
 		try {
 			server = new ServerSocket(7788);
 			clientList = new ArrayList<ServerTrd01>();
+			idList = new ArrayList<String>();
+			setIdList();
 //			map = new HashMap<String, String>();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -55,10 +57,24 @@ public class ChatServer01{
 				BufferedReader br = new BufferedReader(tmp);
 				
 				// 먼저 로그인 처리
-				String str = br.readLine(); // id=euns ==> euns
+				String str = br.readLine();
+				
+				/* 
+				 * id=euns ==> euns
+				 */
 				String id = str.substring(str.indexOf('=') + 1);
-				if(id.equals(" ") || id == null) {
-					id = "못난이";
+				boolean bool = false;
+				
+				for(int i = 0 ; i < idList.size(); i++ ) {
+					if(id.equals(idList.get(i))) {
+						bool = true;
+					}
+				}
+				
+				if(!bool) {
+					prw.close();
+					br.close();
+					socket.close();
 				}
 				// 응답 메세지 전송
 				prw.println("OK");
@@ -70,14 +86,20 @@ public class ChatServer01{
 					지금은 각각의 클라이언트와 대화하는 프로그램을 독립적으로 만들 예정이다.
 				 */
 				ServerTrd01 t = new ServerTrd01(this, socket, id);
+				t.br = br;
+				t.prw = prw;
+				System.out.println("********** 1 : " + clientList.size());
 				clientList.add(t);
+				System.out.println("********** 2 : " + clientList.size());
 				/*
 					t 안에는 그 클라이언트에 대한 모든 정보를 변수로 준비하고 있고
 					t를 통째로 넣어주면 필요할 때 저어보를 꺼내서 사용할 수 있게된다.
 				 */
 				t.start();
-			}catch(Exception e) {
-				e.printStackTrace();
+			} catch(Exception e) {
+				System.out.println("********** 3 : " + clientList.size());
+				System.out.println("클라이언트 접속 종료");
+//				e.printStackTrace();
 			}
 		}
 	}
@@ -85,5 +107,27 @@ public class ChatServer01{
 	public static void main(String[] args) {
 		new ChatServer01();
 	}
-
+	
+	
+	public void setIdList() {
+		idList.add("euns");
+		idList.add("jiwoo");
+		idList.add("chan");
+		idList.add("joseph");
+		idList.add("wook");
+		idList.add("jsh");
+		idList.add("jinwoo");
+		idList.add("dolphin");
+		idList.add("kys");
+		idList.add("pkj");
+		idList.add("joo");
+		idList.add("san");
+		idList.add("woong");
+		idList.add("sujin");
+		idList.add("jhw");
+		idList.add("kjh");
+		idList.add("jieun");
+		idList.add("min");
+		idList.add("hoon");
+	}
 }
