@@ -209,14 +209,15 @@ public class ChatClient01 extends JFrame {
 				if(str == null) {
 					return;
 				}
+				str = "id=" + str;
 				
-				prw.println("id=" + str);
+				prw.println(str);
 				prw.flush();
 
 				// 서버의 응답 받고
 				try {
 					str = br.readLine();
-				} catch (IOException e1) {
+				} catch (Exception e1) {
 					e1.printStackTrace();
 					return;
 				}
@@ -229,10 +230,7 @@ public class ChatClient01 extends JFrame {
 					
 					loginFr.setVisible(false);
 					chat.setVisible(true);
-				} else {
-					return;
 				}
-				
 			}
 		});
 		

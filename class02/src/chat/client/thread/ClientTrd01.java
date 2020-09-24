@@ -25,6 +25,9 @@ public class ClientTrd01 extends Thread {
 				}
 				
 				// 받은 데이터를 출력한다.
+//				String old = main.area.getText();
+//				msg = old + msg + "\n";
+//				main.area.setText(msg);
 				main.area.append(msg + "\n");
 				// 스크롤바 처리
 				main.span.getVerticalScrollBar().setValue(main.span.getVerticalScrollBar().getMaximum());
