@@ -63,10 +63,36 @@ public class MemberDao {
 		int cnt = 0 ; 
 		
 		con = db2.getCon();
-		String sql = "INSERT INTO member VALUES( " +
+		String sql = "INSERT INTO memb01 VALUES( " +
 					"?, ?, ?, ?, ?, ?, ?, TO_DATE(?, 'yyyy/mm/dd HH:MI:ss'), ?" +
-					")";
+					" )";
+		pstmt = db2.getPSTMT(con, sql);
 		
+		try{
+			for(int i = 0 ; i < list.size(); i++ ){
+				MemberVO mVO = list.get(i);
+				// 질의명령 완성하고
+				pstmt.setInt(1, mVO.getMno());
+				pstmt.setString(2, mVO.getId());
+				pstmt.setString(3, mVO.getPw());
+//				-------------------------------------
+				pstmt.setString(4, mVO.getName());
+				pstmt.setString(5, mVO.getMail());
+				pstmt.setString(6, mVO.getGen());
+				pstmt.setInt(7, mVO.getAvt());
+				pstmt.setString(8, mVO.getSdate());
+				pstmt.setString(9, mVO.getIsshow());
+//				-------------------------------------
+				
+				int no = pstmt.executeUpdate();
+				if(no == 1 ) cnt += 1;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db2.close(pstmt);
+			db2.close(con);
+		}
 		
 		return cnt;
 	}
