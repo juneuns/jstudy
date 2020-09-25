@@ -16,24 +16,14 @@ import java.util.*;
 import chatting.server.thread.*;
 public class ChatServer01{
 	ServerSocket server;
-	/*
-		내가 준 데이터는 다른 클라이언트에게도 전달해야 한다.
-		따라서 서버 입장에서는
-		자신에게 접속한 클라이언트의 정보를 알고 있어야 한다.
-		
-		따라서 서버에 접속한 클라이언트의 정보를 기억할 변수를 준비한다.
-	 */
-	public ArrayList<ServerTrd01> clientList;
-//	public HashMap<String, String> map; // id = ip
-	public ArrayList<String> idList;
+	
+	public ArrayList<ServerTrd01> clientList; // 접속자 관리할 변수
 	public ChatServer01() {
-		// 접속 대기 소켓을 준비한다.
+		// 1. 접속 대기 소켓을 준비한다.
 		try {
 			server = new ServerSocket(7788);
 			clientList = new ArrayList<ServerTrd01>();
-			idList = new ArrayList<String>();
-			setIdList();
-//			map = new HashMap<String, String>();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -41,54 +31,20 @@ public class ChatServer01{
 		
 		System.out.println("### 서버 준비 완료 ###");
 		
-		/*
-			이제 접속을 계속 받으면 된다.
-			==> 반복 처리한다.
-		 */
+		
 		while(true) {
 			try {
+				// 2. 접속 받는다.
 				Socket socket = server.accept();
 				
-				InputStream in = socket.getInputStream();
-				OutputStream out = socket.getOutputStream();
-				PrintWriter prw = new PrintWriter(out);
-				
-				InputStreamReader tmp = new InputStreamReader(in);
-				BufferedReader br = new BufferedReader(tmp);
-				
-				// 먼저 로그인 처리
-				String str = br.readLine();
-				
-				/* 
-				 * id=euns ==> euns
-				 */
-				String id = str.substring(str.indexOf('=') + 1);
-				boolean bool = false;
-				
-				for(int i = 0 ; i < idList.size(); i++ ) {
-					if(id.equals(idList.get(i))) {
-						bool = true;
-					}
-				}
-				
-				if(!bool) {
-					prw.close();
-					br.close();
-					socket.close();
-				}
-				// 응답 메세지 전송
-				prw.println("OK");
-				prw.flush();
-				System.out.println("######### server id : " + id);
-				
 				/*
-					어제는 지금 만들어진 접속을 가지고 여기서 처리를 했다.
-					지금은 각각의 클라이언트와 대화하는 프로그램을 독립적으로 만들 예정이다.
+					3. 해당 클라이언트와 통신할 전담 프로그램을 만들어서 배정한다.
+						이 프로그램은 독립적으로 실행되어야 하고
+						스레드로 만들어야 한다.
 				 */
-				ServerTrd01 t = new ServerTrd01(this, socket, id);
-				t.br = br;
-				t.prw = prw;
-				System.out.println("********** 1 : " + clientList.size());
+				
+				ServerTrd01 t = new ServerTrd01(this, socket);
+				
 				clientList.add(t);
 				System.out.println("********** 2 : " + clientList.size());
 				/*
@@ -107,27 +63,5 @@ public class ChatServer01{
 	public static void main(String[] args) {
 		new ChatServer01();
 	}
-	
-	
-	public void setIdList() {
-		idList.add("euns");
-		idList.add("jiwoo");
-		idList.add("chan");
-		idList.add("joseph");
-		idList.add("wook");
-		idList.add("jsh");
-		idList.add("jinwoo");
-		idList.add("dolphin");
-		idList.add("kys");
-		idList.add("pkj");
-		idList.add("joo");
-		idList.add("san");
-		idList.add("woong");
-		idList.add("sujin");
-		idList.add("jhw");
-		idList.add("kjh");
-		idList.add("jieun");
-		idList.add("min");
-		idList.add("hoon");
-	}
+
 }

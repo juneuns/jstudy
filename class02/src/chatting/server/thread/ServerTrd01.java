@@ -11,108 +11,101 @@ import chatting.server.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+
+import chatting.server.dao.*;
+
 public class ServerTrd01 extends Thread {
 	ChatServer01 main;
 	
-	// 통신 변수
+	// 필수 통신 변수
 	Socket socket;
+	
 	public PrintWriter prw ;
 	public BufferedReader br;
-	String ip, id;
+	String id;
 	
-	
-	public ServerTrd01(ChatServer01 main, Socket socket, String id) throws Exception {
+	public ServerTrd01(ChatServer01 main, Socket socket) throws Exception {
 		this.main = main;
 		this.socket = socket;
-		this.id = id;
 		
-		/*
-			아래부분은 원칙적으로 예외처리를 해줘야 하는 부분이다.
-			그런데
-			이 클래스의 목적은 해당 클라이언트와 통신할 목적이다.
-			그런데 
-			만약 스트림을 만들지 못한다면 대화를 못할 것이다.
-			따라서 이 프로그램의 존재의 이유가 없어진다.
-		 */
 		InputStream in = socket.getInputStream();
 		OutputStream out = socket.getOutputStream();
-//		prw = new PrintWriter(out);
+		prw = new PrintWriter(out);
 		
 		InputStreamReader tmp = new InputStreamReader(in);
-//		br = new BufferedReader(tmp);
+		br = new BufferedReader(tmp);
 		
-		// 아이피 얻어내고
-		InetAddress inet = socket.getInetAddress();
-		ip = inet.getHostAddress();
-		
-//		main.map.put(id, ip);
 	}
 	
-	public void sendMsg(String msg) {
-		/*
-			msg 안에는 클라이언트가 준 대화내용이 기억되어 있다.
-			우리는 응답을 
-				
-				jiwoo ] xxxxxxxx
-				
-			따라서 응답내용을 꾸며준다.
-		 */
-		msg = id + " ] - " + msg;
+	// euns|12345 로 넘어오는 로그인 요청 처리함수
+	public void loginProc(String msg) {
+		MemberDao mDao = new MemberDao();
+		// 아이디와 비밀번호를 뽑는다.
+		id = msg.substring(0, msg.charAt('|'));
+		String pw = msg.substring(msg.charAt('|') + 1);
+		int cnt = mDao.getLogin(id, pw);
 		
-//		System.out.println("*** server msg : " + msg);
+		if(cnt == 1) {
+			msg = "110Y";
+		} else {
+			msg = "110N";
+		}
 		
-		// 이제 메세지는 준비되었고 준비된 메세지를 모든 접속한 클라이언트에게 뿌려주면 된다.
-		int size = 0; // 전송될 클라이언트의 명수를 기억할 변수
+		prw.println(msg);
+		prw.flush();
+	}
+	
+	// 채팅 메세지 전담 처리함수
+	public void chatProc(String msg) {
+		// 할일
+		// 모든 채팅 참여자에게 한번씩 데이터를 보내주면 된다.
+		// 대신 앞에 '130아이디 ] 메세지'
+		// 의 형태로 만들어서 보낸다.
+		msg = 130 + id + " ] " + msg;
 		
-		/*
-			참고 ]
-				응답은 동시에 처리하지 못하고 한사람씩 반복해서 처리해줘야 한다.
-				그런데 클라이언트의 정보는 clientList 에 기억해서 처리할 예정이다.
-				그렇다면 응답은 clientList에 등록된 사람에 한해서 처리해줘야 한다.
-				그런데 응답을 하는 도중 새로운 접속자가 발생하면
-				프로그램이 오류가 발생할 수 있다.
-				따라서 응답을 도중에는 리스트를 수정하지 못하도록 처리한다.
-		 */
 		synchronized(main.clientList) {
-			size = main.clientList.size();
+			// 접속한 클라이언트가 몇명인지 알아내고
+			int cnt = main.clientList.size();
 			
-			for(int i = 0 ; i < size ; i++ ) {
-				// 클라이언트 정보를 꺼낸다.
+			for(int i = 0 ; i < cnt ; i++ ) {
+				// 한사람씩 정보를 꺼내고
 				ServerTrd01 tmp = main.clientList.get(i);
 				
 				tmp.prw.println(msg);
 				tmp.prw.flush();
 			}
 		}
-		
 	}
 	
 	@Override
 	public void run() {
-		// 할일
 		try {
-			while(true){
-				// 요청 받고
+			// 클라이언트와 통신을 한다.
+			while(true) {
 				String msg = br.readLine();
 				if(msg == null) {
 					break;
 				}
-				// 응답하고
-				sendMsg(msg);
+				
+				int code = Integer.parseInt(msg.substring(0, 3));
+				msg = msg.substring(3);
+				switch(code) {
+				case 210:
+					loginProc(msg);
+					break;
+				case 230:
+					chatProc(msg);
+					break;
+				}
 			}
 		} catch(Exception e) {
-			// 이 경우는 이 스레드는 사용할 수 없는 스레드이다.
-			// 따라서 자신이 사용하던 모든 자원을 반환해줘야 한다.
+		} finally {
+			main.clientList.remove(this);
 			try {
 				prw.close();
 				br.close();
 				socket.close();
-			} catch(Exception e1) {}
-			
-			// 이 클라이언트는 접속이 끊어진 상태이므로
-			// 접속자 리스트에서 제거해줘야 한다.
-			main.clientList.remove(this);
-//			main.map.remove(id);
+			} catch(Exception e) {}
 		}
 	}
 }
