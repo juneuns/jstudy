@@ -86,11 +86,9 @@ public class ServerTrd01 extends Thread {
 			// 클라이언트와 통신을 한다.
 			while(true) {
 				String msg = br.readLine();
-				System.out.println(main.clientList.size() + " | " + msg);
 				if(msg == null) {
 					break;
 				}
-				System.out.println("*** thread msg : " + msg.substring(0, 3));
 				int code = Integer.parseInt(msg.substring(0, 3));
 				msg = msg.substring(3);
 				

@@ -16,8 +16,8 @@ import java.util.*;
 import chatting.server.thread.*;
 public class ChatServer01{
 	ServerSocket server;
-	
 	public ArrayList<ServerTrd01> clientList; // 접속자 관리할 변수
+	
 	public ChatServer01() {
 		// 1. 접속 대기 소켓을 준비한다.
 		try {
@@ -30,7 +30,6 @@ public class ChatServer01{
 		}
 		
 		System.out.println("### 서버 준비 완료 ###");
-		
 		
 		while(true) {
 			try {

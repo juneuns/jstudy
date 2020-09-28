@@ -54,13 +54,10 @@ public class ButtonEvent implements ActionListener {
 			main.prw = new PrintWriter(out);
 			
 			String str = "210" + sid + "|" + spw;
-			System.out.println(str);
 			main.prw.println(str);
 			main.prw.flush();
 			
-			
 			String msg = main.br.readLine();
-			System.out.println("### login msg : " + msg);
 			
 			if(msg.substring(0, 3).equals("110")) {
 				if(msg.charAt(3) == 'Y') {
@@ -93,7 +90,18 @@ public class ButtonEvent implements ActionListener {
 	
 	// 메세지 보내기 처리함수
 	public void sendProc() {
+		// 할일
+		// 		입력내용 알아내고
+		String msg = main.frame.input.getText();
+		if(msg == null) {
+			return;
+		}
+		msg = 230 + msg;
+		main.prw.println(msg);
+		main.prw.flush();
 		
+		// 입력창 비워주고
+		main.frame.input.setText("");
 	}
 	
 }

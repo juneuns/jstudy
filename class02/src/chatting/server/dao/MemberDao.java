@@ -29,7 +29,6 @@ public class MemberDao {
 		con = db.getCon();
 		String sql = "SELECT COUNT(*) cnt FROM member WHERE id = ? AND pw = ? AND isshow = 'Y'";
 		
-		System.out.println("******** sql : " + sql);
 		pstmt = db.getPSTMT(con, sql);
 		
 		try {
@@ -42,7 +41,6 @@ public class MemberDao {
 			rs.next();
 			
 			cnt = rs.getInt("cnt");
-			System.out.println("cnt : " + cnt);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
