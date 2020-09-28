@@ -7,11 +7,11 @@ package chatting.server.thread;
 	따라서 서버의 메인 프로그램과 연결이 되어 있어야 한다.
  */
 
-import chatting.server.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import chatting.server.*;
 import chatting.server.dao.*;
 
 public class ServerTrd01 extends Thread {
@@ -41,11 +41,14 @@ public class ServerTrd01 extends Thread {
 	public void loginProc(String msg) {
 		MemberDao mDao = new MemberDao();
 		// 아이디와 비밀번호를 뽑는다.
-		id = msg.substring(0, msg.charAt('|'));
-		String pw = msg.substring(msg.charAt('|') + 1);
+		id = msg.substring(0, msg.indexOf('|'));
+		String pw = msg.substring(msg.indexOf('|') + 1);
 		int cnt = mDao.getLogin(id, pw);
 		
 		if(cnt == 1) {
+			synchronized(main.clientList) {
+				main.clientList.add(this);
+			}
 			msg = "110Y";
 		} else {
 			msg = "110N";
@@ -83,12 +86,14 @@ public class ServerTrd01 extends Thread {
 			// 클라이언트와 통신을 한다.
 			while(true) {
 				String msg = br.readLine();
+				System.out.println(main.clientList.size() + " | " + msg);
 				if(msg == null) {
 					break;
 				}
-				
+				System.out.println("*** thread msg : " + msg.substring(0, 3));
 				int code = Integer.parseInt(msg.substring(0, 3));
 				msg = msg.substring(3);
+				
 				switch(code) {
 				case 210:
 					loginProc(msg);
@@ -99,6 +104,7 @@ public class ServerTrd01 extends Thread {
 				}
 			}
 		} catch(Exception e) {
+			e.printStackTrace();
 		} finally {
 			main.clientList.remove(this);
 			try {

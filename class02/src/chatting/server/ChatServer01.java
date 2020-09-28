@@ -44,14 +44,8 @@ public class ChatServer01{
 				 */
 				
 				ServerTrd01 t = new ServerTrd01(this, socket);
-				
-				clientList.add(t);
-				System.out.println("********** 2 : " + clientList.size());
-				/*
-					t 안에는 그 클라이언트에 대한 모든 정보를 변수로 준비하고 있고
-					t를 통째로 넣어주면 필요할 때 저어보를 꺼내서 사용할 수 있게된다.
-				 */
 				t.start();
+				
 			} catch(Exception e) {
 				System.out.println("********** 3 : " + clientList.size());
 				System.out.println("클라이언트 접속 종료");
@@ -63,5 +57,4 @@ public class ChatServer01{
 	public static void main(String[] args) {
 		new ChatServer01();
 	}
-
 }

@@ -41,14 +41,15 @@ public class ChattingFrame extends JFrame {
 		input = new JTextField();
 		input.setPreferredSize(new Dimension(350, 30));
 		
+		// 이벤트 추가
+		input.addKeyListener(new EnterEvent(main));
+		
 		// 버튼
 		sendB = new JButton("send");
 		sendB.setPreferredSize(new Dimension(100, 30));
 		
 		// event 처리
-		ButtonEvent evt = new ButtonEvent(main);
-		
-		sendB.addActionListener(evt);
+		sendB.addActionListener(main.evt);
 		
 		inPan.add(input, BorderLayout.CENTER);
 		inPan.add(sendB, BorderLayout.EAST);

@@ -65,9 +65,8 @@ public class LoginFrame extends JFrame {
 		exitB = new JButton("종료");
 		
 		// event 처리
-		ButtonEvent evt = new ButtonEvent(main);
-		loginB.addActionListener(evt);
-		exitB.addActionListener(evt);
+		loginB.addActionListener(main.evt);
+		exitB.addActionListener(main.evt);
 		
 		// 버튼 패널
 		JPanel bPan = new JPanel(new GridLayout(1, 2));
