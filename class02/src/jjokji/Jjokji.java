@@ -1,6 +1,5 @@
 package jjokji;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -8,18 +7,20 @@ import java.util.*;
 import java.io.*;
 import java.net.*;
 
+import jjokji.thread.*;
+
 public class Jjokji {
 	// Map 이 두개가 필요하다.
 	// 아이디를 알면 아이피를 찾을 수 있는 Map
 	// 아이피를 알면 아이디를 알 수 있는 Map
-	Properties idToIp, ipToId;
+	public Properties idToIp, ipToId;
 	
 	JList list;
 	JButton writeB;
 	JFrame fr;
 	
 	// UDP 통신은 DatagramSocket 으로 통신을 한다.
-	DatagramSocket sSocket, rSocket;
+	public DatagramSocket sSocket, rSocket;
 	/*
 		sSocket : 보내는 소켓
 		rSocket : 받는 소켓
@@ -35,10 +36,44 @@ public class Jjokji {
 	public Jjokji() {
 		setMap();
 		setUI();
+		setNetwork();
 	}
 
 	public static void main(String[] args) {
 		new Jjokji();
+	}
+	
+	// 네트워크 구성 전담 함수
+	public void setNetwork() {
+		try {
+			/*
+				UDP 통신에서는 DatagramSocket 을 이용해서 
+				네트워크를 구성한다.
+			 */
+			sSocket  = new DatagramSocket();
+			rSocket = new DatagramSocket(9999);
+			/*
+				소켓이 구성이 된 상태이다.
+				누군가 접속한 상태는 아니다.
+				네트워크 회선에만 접속을 한 상태가 된다.
+				==> 네트워크가 가능한 상태다 됬다.
+				
+				이제 네트워크 구성이 완료가 됬으므로
+				쪽지를 보내고 받을 수 있는 상태가 됬다.
+				
+				따라서 쪽지를 받는 프로그램을 시작한다.
+			 */
+			
+			ReceiveThread t = new ReceiveThread(this); // New Born 상태
+			t.start(); // Runnable 상태로 전위
+		} catch(Exception e) {
+			// 소켓을 구성하는 도중 에러가 발생하면 
+			// 이 프로그램은 통신을 할 수 없는 프로그램이 되므로
+			// 더이상 실행에 의미가 없다.
+			e.printStackTrace();
+			close();
+			System.exit(0);
+		}
 	}
 	
 	public void close() {
